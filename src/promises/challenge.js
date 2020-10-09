@@ -5,16 +5,14 @@ const API = "https://rickandmortyapi.com/api/character/";
 
 fetchData(API)
   .then((response) => {
-    fetchData(API + response.results[0].id)
-      .then((response2) => {
-        fetchData(response2.origin.url)
-          .then((response3) => {
-            console.log(response.info.count);
-            console.log(response2.name);
-            console.log(response3.dimension);
-          })
-          .catch((err) => console.error(err));
-      })
-      .catch((err) => console.error(err));
+    console.log(response.info.count);
+    return fetchData(API + response.results[0].id);
+  })
+  .then((response) => {
+    console.log(response.name);
+    return fetchData(response.origin.url);
+  })
+  .then((response) => {
+    console.log(response.dimension);
   })
   .catch((err) => console.error(err));
